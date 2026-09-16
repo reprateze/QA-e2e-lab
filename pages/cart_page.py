@@ -14,12 +14,10 @@ class CartPage(BasePage):
         return self.page.locator(self.CART_PRODUCT_NAMES).all_text_contents()
     
     def remover_todos_produtos(self):
+        import time
         while self.page.locator(self.REMOVER_BUTTON).count() > 0:
-            quantidade_antes = self.page.locator(self.REMOVER_BUTTON).count()
             self.page.locator(self.REMOVER_BUTTON).first.click()
-            self.page.wait_for_function(
-                f"document.querySelectorAll('{self.REMOVER_BUTTON}').length < {quantidade_antes}"
-            )
+            time.sleep(2)
 
     def get_carrinho_vazio(self) -> bool:
         return self.page.locator(self.CARRINHO_VAZIO).is_visible()

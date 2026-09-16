@@ -1,0 +1,27 @@
+name: PR Reviewer AI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chamar API do PR Reviewer AI
+        env:
+          REVIEWER_API_URL: ${{ secrets.REVIEWER_API_URL }}
+        run: |
+          if [ -z "$REVIEWER_API_URL" ]; then
+            echo "REVIEWER_API_URL nao configurado - pulando."
+            exit 0
+          fi
+
+          curl -X POST "$REVIEWER_API_URL/review" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "owner": "${{ github.repository_owner }}",
+              "repo": "${{ github.event.repository.name }}",
+              "pr_number": ${{ github.event.pull_request.number }},
+              "head_ref": "${{ github.event.pull_request.head.sha }}"
+            }'

@@ -36,21 +36,25 @@ class BasePage:
         return float(texto_limpo)
 
     def totais_batem(self) -> bool:
-        linhas = self.page.locator("#cart_info_table tbody tr")
-    
-        for i in range(linhas.count()):
-            linha = linhas.nth(i)
-        
-            preco_texto = linha.locator(self.CART_PRECO).inner_text()
-            quantidade_texto = linha.locator(self.CART_QUANTIDADE).inner_text()
-            total_texto = linha.locator(self.CART_TOTAL).inner_text()
+    linhas = self.page.locator("#cart_info_table tbody tr")
 
-            preco = self._extrair_valor(preco_texto)
-            quant = int(quantidade_texto)
-            total_exibido = self._extrair_valor(total_texto)
+    for i in range(linhas.count()):
+        linha = linhas.nth(i)
 
-            if preco * quant != total_exibido:
-                return False
+        preco_texto = linha.locator(self.CART_PRECO).inner_text()
+        quantidade_texto = linha.locator(self.CART_QUANTIDADE).inner_text()
+        total_texto = linha.locator(self.CART_TOTAL).inner_text()
 
-        return True
+        preco = self._extrair_valor(preco_texto)
+        quant = int(quantidade_texto)
+        total_exibido = self._extrair_valor(total_texto)
+
+        # FORÇANDO FALHA
+        if preco * quant != total_exibido:
+            return False
+
+        return False  # <-- força o método a falhar
+
+    return True
+
         

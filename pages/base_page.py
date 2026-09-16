@@ -46,7 +46,7 @@ class BasePage:
             total_texto = linha.locator(self.CART_TOTAL).inner_text()
 
             preco = self._extrair_valor(preco_texto)
-            quantidade = int(quantidade_texto)
+            quantidade = int(quantidade_texto.strip())
             total_exibido = self._extrair_valor(total_texto)
 
             if preco * quantidade != total_exibido:

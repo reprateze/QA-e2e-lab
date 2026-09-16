@@ -55,13 +55,13 @@ class ProductPage(BasePage):
         self.fill(self.REVIEW_INPUT, texto)
         self.click(self.REVIEW_BUTTON)
 
-    def review_enviada_com_sucesso(self) -> bool:
+    def review_enviada_com_sucesso(self, timeout: int = 10000) -> bool:
         try:
-            self.page.get_by_text("Thank you for your review.").wait_for(state="visible", timeout=5000)
+            self.page.get_by_text("Thank you for your review.").wait_for(state="visible", timeout=timeout)
             return True
         except TimeoutError:
-      
             return False
+
         
     def fechar_modal_adicionado(self):
         self.click(self.FECHAR_MODAL)

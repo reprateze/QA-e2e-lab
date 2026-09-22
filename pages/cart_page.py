@@ -16,7 +16,7 @@ class CartPage(BasePage):
     def remover_todos_produtos(self):
         while self.page.locator(self.REMOVER_BUTTON).count() > 0:
             quantidade_antes = self.page.locator(self.REMOVER_BUTTON).count()
-            self.page.locator(self.REMOVER_BUTTON).first.click()
+            self.page.locator(self.REMOVER).first.click()
             self.page.wait_for_function(
                 f"document.querySelectorAll('{self.REMOVER_BUTTON}').length < {quantidade_antes}"
             )

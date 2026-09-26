@@ -11,7 +11,7 @@ class CartPage(BasePage):
     IR_PARA_CHECKOUT = ".check_out"
 
     def get_produtos_no_carrinho(self) -> list[str]:
-        return self.page.locator(self.CART_PRODUCT_NAMES).all_text_contents()
+        return self.page.locator(self.CART_PRODUCT).all_text_contents()
     
     def remover_todos_produtos(self):
         while self.page.locator(self.REMOVER_BUTTON).count() > 0:

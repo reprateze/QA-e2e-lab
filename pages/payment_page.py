@@ -1,3 +1,4 @@
+"""Page Object da tela de pagamento."""
 from pages.base_page import BasePage
 import re
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
@@ -28,5 +29,5 @@ class  PaymentPage(BasePage):
         except PlaywrightTimeoutError:
             pass  
 
-    def pedido_concluido_visivel(self) -> bool:
-        return self.page.wait_for_locator(self.PEDIDO_CONCLUIDO).is_visible()
+    def pedido_concluido_visivel(self, timeout: int = 5000) -> bool:
+        return self.page.wait_for_locator(self.PEDIDO_CONCLUIDO, timeout=timeout).is_visible()
